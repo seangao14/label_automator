@@ -1,5 +1,5 @@
 var items
-import {PDFDocument} from './pdf-lib.js'
+const {PDFDocument} = PDFLib
 
 document.addEventListener('DOMContentLoaded', function(){
     document.querySelector('#fetch').addEventListener('click', fetch, false)
@@ -26,8 +26,9 @@ document.addEventListener('DOMContentLoaded', function(){
             document.body.appendChild(div)
         })*/
 
-        var filename = document.getElementById("filename").innerText
-        alert(filename)
+        var filename = document.getElementById("filename").value
+
+        alert(browser.downloads.showDefaultFolder())
     }
 
 },false)
