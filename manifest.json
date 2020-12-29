@@ -1,0 +1,22 @@
+{
+    "name": "label_automator",
+    "version": "1.0",
+    "manifest_version": 2,
+    "content_scripts": [
+        {
+            "matches": ["https://sellercentral.amazon.com/*"],
+            "js": ["content.js"]
+        },
+        {
+            "matches": ["https://sellercentral.amazon.com/orders-st/shipping-label?*"],
+            "js": ["pdf_.js"]
+        }
+    ],
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_title": "Fun"
+    },
+    "background": {
+        "scripts": ["background.js"]
+    }
+}
