@@ -6,10 +6,6 @@
         {
             "matches": ["https://sellercentral.amazon.com/*"],
             "js": ["content.js"]
-        },
-        {
-            "matches": ["https://sellercentral.amazon.com/orders-st/shipping-label?*"],
-            "js": ["pdf_.js"]
         }
     ],
     "browser_action": {

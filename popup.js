@@ -1,4 +1,3 @@
-var items
 const {PDFDocument} = PDFLib
 
 
@@ -10,48 +9,39 @@ document.addEventListener('DOMContentLoaded', function(){
     function retrieve(){
         chrome.tabs.query({currentWindow: true, active: true},
             function(tabs){
-                chrome.tabs.sendMessage(tabs[0].id, 'hi', setItems)
+                chrome.tabs.sendMessage(tabs[0].id, 'hi')
             })
     }
 
-    function setItems(res){
-        items = res.items
-        
-    }
-
     async function apply(){
-        /*items.forEach(item => {
+        const fname = document.getElementById("fname").value
 
-            const div = document.createElement('div')
-            div.textContent = `${item}`
-            document.body.appendChild(div)
-        })*/
-        
-        //const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf'
-        const url = "USPSlabel.pdf"
+        const url = `./../${fname}.pdf`
         const pdfbytes = await fetch(url).then(res => res.arrayBuffer())
 
-        //const pdfbytes = new Response("USPSlabel.pdf").arrayBuffer()
 
         const pdfDoc = await PDFDocument.load(pdfbytes)
         const pages = pdfDoc.getPages()
         const firstPage = pages[0]
         const {width, height} = firstPage.getSize()
 
-        for (let i = 0; i < pages.length; i++) {
-            pages[i].drawText(`GEORGE IS A GAY MAN ${i}`, {
-                x: 100,
+        const bg = chrome.extension.getBackgroundPage()
+
+        for (let i = 0; i < bg.items.length; i++) {
+            pages[i].drawText(`${bg.items[i]}`, {
+                x: 20,
                 y: height/2 - 300,
-                size: 20,
+                size: 8,
+            })
+
+            pages[i].drawText(`${bg.qty[i]}`, {
+                x: 20,
+                y: height/2 - 320,
+                size: 8,
             })
         }
 
         const pdfBytes = await pdfDoc.save()
-
-        /*
-        var sample = base64ToArrayBuffer(pdfBytes)
-        var url_ = URL.createObjectURL(sample)
-        */
 
         var bytes = new Uint8Array(pdfBytes); // pass your byte response to this constructor 
         var blob=new Blob([bytes], {type: "application/pdf"});// change resultByte to bytes
@@ -60,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function(){
         
         chrome.downloads.download({
             url: url_, 
-            filename: "fun_with_js.pdf"
+            filename: "new_label.pdf"
         })
     }
 

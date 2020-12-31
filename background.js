@@ -1,4 +1,8 @@
+window.items = []
+window.qty = []
+
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    //alert(request.doc.length)
-    //alert(request.doc[1].innerText)
+
+    window.items = request.items
+    window.qty = request.qty
 })

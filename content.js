@@ -1,11 +1,17 @@
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+chrome.runtime.onMessage.addListener(function(request, sender){
     const data = document.querySelectorAll("div.a-col-right div")
-    var ret = []
+    var items = []
+    var qty = []
     
     for (var i = 0; i < data.length; i++){
         if (i%3==1){
-            ret.push(data[i].innerText)
+            items.push(data[i].innerText)
+            qty.push(data[i+1].innerText)
         }
     }
-    sendResponse({items: ret})
+    chrome.runtime.sendMessage({
+        items: items,
+        qty: qty
+    })
+
 })
