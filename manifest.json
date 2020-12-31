@@ -18,5 +18,9 @@
     },
     "background": {
         "scripts": ["background.js"]
-    }
+    },
+    "permissions": [
+        "downloads"
+    ]
+
 }
